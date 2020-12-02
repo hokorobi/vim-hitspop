@@ -10,11 +10,16 @@ let s:searchcount_options = #{
   \ timeout: 30,
   \ }
 
+let s:popup_pos_top = get(g:, 'hitspop_popup_pos_top', v:true)
+let s:popup_pos_right = get(g:, 'hitspop_popup_pos_right', v:true)
+
+let s:popup_pos = join([s:popup_pos_top ? 'top' : 'bot', s:popup_pos_right ? 'right' : 'left'], '')
+
 function! s:CreatePopup(line, col) abort
   let s:hitspop_popup_id = popup_create(s:GetContent(), #{
     \ line: a:line,
     \ col: a:col,
-    \ pos: 'topright',
+    \ pos: s:popup_pos,
     \ zindex: s:popup_zindex,
     \ padding: [0, 1, 0, 1],
     \ highlight: 'HitsPopPopup',
@@ -68,7 +73,8 @@ function! hitspop#main() abort
   endif
 
   let [l:popup_line, l:popup_col] = win_screenpos(0)
-  let l:popup_col += winwidth(0) - 1
+  let l:popup_line += s:popup_pos_top ? 0 : winheight(0) - 1
+  let l:popup_col += s:popup_pos_right ? winwidth(0) - 1 : 0
 
   if !s:PopupExists()
     call s:CreatePopup(l:popup_line, l:popup_col)

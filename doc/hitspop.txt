@@ -25,6 +25,12 @@ OPTIONS                                                      *hitspop-options*
 *g:hitspop_popup_zindex* (default: 50)
     Priotiry for the popup. Minumum value is 1, maximum value is 32000.
 
+*g:hitspop_popup_pos_top* (default: v:true)
+    Show the popup at top or bottom.
+
+*g:hitspop_popup_pos_right* (default: v:true)
+    Show the popup at right or left.
+
 
 ==============================================================================
 ABOUT                                                          *hitspop-about*
